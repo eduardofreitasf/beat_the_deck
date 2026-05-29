@@ -195,4 +195,39 @@ const store = useGameStore();
     opacity: 1;
   }
 }
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .overlay__card {
+    padding: 32px 24px;
+    border-radius: 16px;
+    gap: 12px;
+  }
+
+  .overlay__icon {
+    font-size: 3rem;
+  }
+
+  .overlay__title {
+    font-size: 1.3rem;
+  }
+
+  .overlay__subtitle {
+    font-size: 0.85rem;
+  }
+
+  .score-value {
+    font-size: 2.2rem;
+  }
+
+  .overlay__score {
+    padding: 12px 24px;
+  }
+
+  .btn-restart {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
+}
 </style>

@@ -8,12 +8,12 @@
   --felt-mid:      #16291c;
   --felt-dark:     #0d1f10;
 
-  /* Cards */
+  /* Cards — fluid sizing: scales between 60px and 90px based on viewport */
   --card-bg:       #f8f4ec;
   --card-border:   #d6cdb8;
   --card-back:     #1e3a5f;
-  --card-w:        90px;
-  --card-h:        128px;
+  --card-w:        clamp(60px, 18vw, 90px);
+  --card-h:        clamp(86px, 25.6vw, 128px);
 
   /* Accents */
   --gold:          #d4af37;
@@ -36,6 +36,7 @@
 
 html, body {
   height: 100%;
+  overflow-x: hidden; /* prevent horizontal scroll on mobile */
 }
 
 body {
@@ -44,6 +45,7 @@ body {
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  touch-action: manipulation; /* disable double-tap zoom on mobile */
 }
 
 /* ── Felt texture overlay ────────────────────────────────── */

@@ -94,4 +94,37 @@ const stackLayers = computed(() => Math.min(Math.ceil(store.deck.length / 5), 6)
   font-size: 0.7rem;
   color: var(--text-muted);
 }
+
+/* ── Mobile: horizontal compact layout ───────────────────── */
+@media (max-width: 600px) {
+  .deck-counter {
+    flex-direction: row;
+    gap: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    padding: 12px 20px;
+  }
+
+  .deck-stack {
+    width: 48px;
+    height: 68px;
+    flex-shrink: 0;
+  }
+
+  .deck-layer {
+    width: 48px;
+    height: 68px;
+    border-radius: 6px;
+  }
+
+  .deck-info {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .deck-count {
+    font-size: 1.6rem;
+  }
+}
 </style>

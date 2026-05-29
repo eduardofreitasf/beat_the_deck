@@ -15,6 +15,18 @@ const topCard = computed(() => props.pile.cards.at(-1))
 const suitSymbol = (suit) => ({ hearts: '♥', diamonds: '♦', spades: '♠', clubs: '♣' }[suit])
 const isRed = (suit) => suit === 'hearts' || suit === 'diamonds'
 
+function handleCardTap() {
+  if (!props.pile.active || props.pile.eliminatedPending) return
+  if (!props.isSelectable) return
+
+  if (props.isSelected) {
+    // Tapping the already-selected pile deselects it
+    store.deselectPile()
+  } else {
+    store.selectPile(props.pile.id)
+  }
+}
+
 function handleGuess(direction) {
   if (!props.pile.active || props.pile.eliminatedPending) return
   // Select the pile first
@@ -33,6 +45,7 @@ function handleGuess(direction) {
       'pile--eliminated': !pile.active,
       'pile--eliminated-pending': pile.eliminatedPending,
     }"
+    @click="handleCardTap"
   >
     <div
       class="card"
@@ -48,7 +61,7 @@ function handleGuess(direction) {
         <span class="card__suit-center">{{ suitSymbol(topCard.suit) }}</span>
         <span class="card__rank card__rank--bottom">{{ topCard.rank }}</span>
 
-        <!-- Hover guessing overlay inside the card -->
+        <!-- Guessing overlay inside the card -->
         <div class="card__guess-overlay" v-if="isSelectable && !pile.eliminatedPending">
           <button
             class="guess-btn guess-btn--higher"
@@ -86,15 +99,28 @@ function handleGuess(direction) {
   transition: transform 0.15s ease;
 }
 
-/* Hover effects */
-.pile--selectable:hover .card {
-  transform: translateY(-6px) scale(1.04);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 0 2px var(--gold);
+/* Hover effects — desktop only */
+@media (hover: hover) {
+  .pile--selectable:hover .card {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 0 2px var(--gold);
+  }
+
+  .pile--selectable:hover .card__guess-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
 .pile--selected .card {
   transform: translateY(-8px) scale(1.06);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 0 3px var(--gold);
+}
+
+/* On touch devices, show overlay when pile is selected */
+.pile--selected .card__guess-overlay {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .pile--eliminated {
@@ -212,11 +238,6 @@ function handleGuess(direction) {
   z-index: 5;
 }
 
-.pile-wrapper:hover .card__guess-overlay {
-  opacity: 1;
-  pointer-events: auto;
-}
-
 .guess-btn {
   flex: 1;
   background: transparent;
@@ -268,5 +289,48 @@ function handleGuess(direction) {
   background: rgba(255, 255, 255, 0.15);
   width: 80%;
   margin: 0 auto;
+}
+
+/* ── Mobile: touch targets & smaller badge ───────────────── */
+@media (max-width: 600px) {
+  .pile--selectable {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pile--selected .card {
+    transform: translateY(-4px) scale(1.03);
+  }
+
+  .card {
+    border-radius: 8px;
+  }
+
+  .card__rank {
+    padding: 4px;
+  }
+
+  .pile__badge {
+    width: 18px;
+    height: 18px;
+    font-size: 0.55rem;
+    bottom: -6px;
+    right: -6px;
+  }
+
+  .guess-btn {
+    min-height: 44px; /* minimum touch target */
+  }
+
+  /* On mobile, pre-color the buttons so user knows what to tap */
+  .guess-btn--higher {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+  }
+
+  .guess-btn--lower {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+  }
 }
 </style>

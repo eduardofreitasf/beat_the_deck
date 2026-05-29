@@ -27,4 +27,10 @@ const isSelectable = computed(() => store.phase === 'select')
   grid-template-rows: repeat(3, var(--card-h));
   gap: 18px;
 }
+
+@media (max-width: 600px) {
+  .game-board {
+    gap: 10px;
+  }
+}
 </style>
