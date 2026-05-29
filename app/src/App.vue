@@ -130,4 +130,40 @@ onMounted(() => store.initGame());
     inset 0 0 60px rgba(0, 0, 0, 0.3),
     0 0 0 2px rgba(255, 255, 255, 0.04);
 }
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .app-header {
+    padding: 12px 16px;
+  }
+
+  .brand-icon {
+    font-size: 1.3rem;
+  }
+
+  .brand-title {
+    font-size: 1.05rem;
+  }
+
+  .btn-new-game {
+    padding: 6px 14px;
+    font-size: 0.75rem;
+  }
+
+  .app-main {
+    padding: 20px 12px;
+    gap: 24px;
+    justify-content: flex-start;
+  }
+
+  .game-container {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .table-surface {
+    padding: 16px;
+    border-radius: 16px;
+  }
+}
 </style>
