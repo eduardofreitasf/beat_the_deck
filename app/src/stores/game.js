@@ -64,11 +64,17 @@ export const useGameStore = defineStore('game', {
     },
 
     selectPile(id) {
-      if (this.phase !== 'select') return
+      if (this.phase !== 'select' && this.phase !== 'guess') return
       const pile = this.piles.find((p) => p.id === id)
       if (!pile || !pile.active || pile.eliminatedPending) return
       this.selectedPileId = id
       this.phase = 'guess'
+    },
+
+    deselectPile() {
+      if (this.phase !== 'guess') return
+      this.selectedPileId = null
+      this.phase = 'select'
     },
 
     guess(direction) {
