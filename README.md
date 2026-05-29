@@ -27,7 +27,11 @@ _Note: Aces are always high (value 14)._
 
 This repository is organized as follows:
 
+- **`.github/`**: GitHub actions workflows, including automated deployment configuration to GitHub Pages.
 - **`/app`**: The frontend codebase. Built with Vue 3, Vite, and Pinia, featuring responsive layouts, micro-animations, and a classic felt-table theme.
+- **`CHANGELOG.md`**: Chronological log of all notable updates, fixes, and features added to the game.
+- **`LICENSE`**: MIT license terms for open-source distribution.
+- **`README.md`**: Main project guide and instructions.
 
 ---
 
