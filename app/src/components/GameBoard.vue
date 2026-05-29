@@ -5,7 +5,7 @@ import Pile from './Pile.vue'
 
 const store = useGameStore()
 
-const isSelectable = computed(() => store.phase === 'select')
+const isSelectable = computed(() => store.phase === 'select' || store.phase === 'guess')
 </script>
 
 <template>
