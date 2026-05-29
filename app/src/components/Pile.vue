@@ -117,12 +117,6 @@ function handleGuess(direction) {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 0 3px var(--gold);
 }
 
-/* On touch devices, show overlay when pile is selected */
-.pile--selected .card__guess-overlay {
-  opacity: 1;
-  pointer-events: auto;
-}
-
 .pile--eliminated {
   opacity: 0.45;
   pointer-events: none;
@@ -318,19 +312,9 @@ function handleGuess(direction) {
     right: -6px;
   }
 
-  .guess-btn {
-    min-height: 44px; /* minimum touch target */
-  }
-
-  /* On mobile, pre-color the buttons so user knows what to tap */
-  .guess-btn--higher {
-    background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
-  }
-
-  .guess-btn--lower {
-    background: rgba(239, 68, 68, 0.15);
-    color: #f87171;
+  /* Hide card overlay on mobile — guess buttons are external */
+  .card__guess-overlay {
+    display: none !important;
   }
 }
 </style>

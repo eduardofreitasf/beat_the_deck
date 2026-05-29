@@ -26,7 +26,25 @@ onMounted(() => store.initGame());
         <div class="table-surface">
           <GameBoard />
         </div>
+
         <DeckCounter />
+
+        <!-- Mobile guess action bar -->
+        <Transition name="guess-bar">
+          <div
+            class="mobile-guess-bar"
+            v-if="store.selectedPileId !== null && store.phase === 'guess'"
+          >
+            <button class="mobile-guess-btn mobile-guess-btn--higher" @click="store.guess('higher')">
+              <span class="mobile-guess-icon">▲</span>
+              <span>Higher</span>
+            </button>
+            <button class="mobile-guess-btn mobile-guess-btn--lower" @click="store.guess('lower')">
+              <span class="mobile-guess-icon">▼</span>
+              <span>Lower</span>
+            </button>
+          </div>
+        </Transition>
       </div>
     </main>
 
@@ -131,6 +149,11 @@ onMounted(() => store.initGame());
     0 0 0 2px rgba(255, 255, 255, 0.04);
 }
 
+/* ── Mobile Guess Bar (hidden on desktop) ────────────────── */
+.mobile-guess-bar {
+  display: none;
+}
+
 /* ── Mobile ──────────────────────────────────────────────── */
 @media (max-width: 600px) {
   .app-header {
@@ -164,6 +187,66 @@ onMounted(() => store.initGame());
   .table-surface {
     padding: 16px;
     border-radius: 16px;
+  }
+
+  /* ── Mobile Guess Bar ────────────────────────────────── */
+  .mobile-guess-bar {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .mobile-guess-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.1s ease, filter 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-guess-btn:active {
+    transform: scale(0.95);
+  }
+
+  .mobile-guess-btn--higher {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(22, 163, 74, 0.4);
+  }
+
+  .mobile-guess-btn--lower {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4);
+  }
+
+  .mobile-guess-icon {
+    font-size: 0.8rem;
+  }
+
+  /* Guess bar transition */
+  .guess-bar-enter-active {
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .guess-bar-leave-active {
+    transition: all 0.15s ease;
+  }
+  .guess-bar-enter-from,
+  .guess-bar-leave-to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
   }
 }
 </style>
